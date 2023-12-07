@@ -7,16 +7,17 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.Period;
 
 public class FileHandling {
-    public ArrayList<Delfine.Swimmer> swimmers = new ArrayList<>();
+    public ArrayList<Swimmer> swimmers = new ArrayList<>();
     public ArrayList<Competition> competitions = new ArrayList<>();
     public ArrayList<Result> results = new ArrayList<>();
 
     public void saveSwimmersToTxtFile() {
         try {
             PrintStream ps = new PrintStream(new FileOutputStream("Swimmers.txt"), true);
-            for (Delfine.Swimmer fileSwimmer : swimmers) {
+            for (Swimmer fileSwimmer : swimmers) {
                 ps.println(fileSwimmer);
             }
             ps.close();
@@ -60,18 +61,25 @@ public class FileHandling {
 
                 String name = attributes[0];
                 int age = Integer.parseInt(attributes[1]);
-                Boolean membershipActive = Boolean.parseBoolean(attributes[2]);
+                boolean membershipActive = Boolean.parseBoolean(attributes[2]);
                 boolean isCompetitiveSwimmer = Boolean.parseBoolean(attributes[3]);
                 String discipline = attributes[4];
                 LocalDate registrationDate = LocalDate.parse(attributes[5]);
                 LocalDate inactiveStartDate = LocalDate.parse(attributes[6]);
-                for (Delfine.Swimmer testDuplicateSwimmer : swimmers){
-                    if (testDuplicateSwimmer.getName().equalsIgnoreCase(name)){
+                boolean hasPaid = Boolean.parseBoolean(attributes[7]);
+                LocalDate hasPaidTime = LocalDate.parse(attributes[8]);
+                for (Swimmer testDuplicateSwimmer : swimmers) {
+                    if (testDuplicateSwimmer.getName().equalsIgnoreCase(name)) {
                         swimmerIsDuplicate = true;
                     }
                 }
-                if (!swimmerIsDuplicate){
-                    Delfine.Swimmer swimmer = new Delfine.Swimmer(name, age, membershipActive, isCompetitiveSwimmer, discipline, registrationDate, inactiveStartDate);
+                if (!swimmerIsDuplicate) {
+
+                    if (Period.between(hasPaidTime, LocalDate.now()).getYears() >= 1) {
+                        hasPaid = false;
+                    }
+
+                    Swimmer swimmer = new Swimmer(name, age, membershipActive, isCompetitiveSwimmer, discipline, registrationDate, inactiveStartDate, hasPaid, hasPaidTime);
                     swimmers.add(swimmer);
                 }
             }
@@ -93,12 +101,12 @@ public class FileHandling {
                 String nameCompetition = attributes[0];
                 LocalDate date = LocalDate.parse(attributes[1]);
 
-                for (Competition testDuplicateCompetitions : competitions){
-                    if (testDuplicateCompetitions.getNameCompetition().equalsIgnoreCase(nameCompetition) && testDuplicateCompetitions.getDate().equals(date)){
+                for (Competition testDuplicateCompetitions : competitions) {
+                    if (testDuplicateCompetitions.getNameCompetition().equalsIgnoreCase(nameCompetition) && testDuplicateCompetitions.getDate().equals(date)) {
                         competitionIsDuplicate = true;
                     }
                 }
-                if (!competitionIsDuplicate){
+                if (!competitionIsDuplicate) {
                     Competition competition = new Competition(nameCompetition, date);
                     competitions.add(competition);
                 }
@@ -135,8 +143,8 @@ public class FileHandling {
                     if (competition != null) {
                         Result result = new Result(swimmerName, placement, time, discipline, competition);
                         results.add(result);
-                        for (Delfine.Swimmer swimmer : swimmers){
-                            if (swimmer.getName().equalsIgnoreCase(swimmerName)){
+                        for (Swimmer swimmer : swimmers) {
+                            if (swimmer.getName().equalsIgnoreCase(swimmerName)) {
                                 swimmer.addResult(result);
                             }
                         }
@@ -159,5 +167,4 @@ public class FileHandling {
         }
         return null;
     }
-
 }

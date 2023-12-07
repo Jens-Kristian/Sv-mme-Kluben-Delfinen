@@ -11,8 +11,10 @@ public class Swimmer {
     public String discipline;
     public LocalDate registrationDate;
     public LocalDate membershipActiveDate;
+    public boolean hasPaid;
+    public LocalDate hasPaidDate;
 
-    public Swimmer(String name, int age, boolean membershipActive, boolean isCompetitiveSwimmer, String discipline, LocalDate registrationDate,LocalDate membershipActiveDate) {
+    public Swimmer(String name, int age, boolean membershipActive, boolean isCompetitiveSwimmer, String discipline, LocalDate registrationDate,LocalDate membershipActiveDate, boolean hasPaid, LocalDate hasPaidDate) {
         this.name = name;
         this.age = age;
         this.membershipActive = membershipActive;
@@ -21,6 +23,8 @@ public class Swimmer {
         this.registrationDate = registrationDate;
         this.competitionHistory = new ArrayList<>();
         this.membershipActiveDate = membershipActiveDate;
+        this.hasPaid = hasPaid;
+        this.hasPaidDate = hasPaidDate;
     }
 
     public void addResult(Result result) {
@@ -67,10 +71,20 @@ public class Swimmer {
 
     public LocalDate getMembershipActiveDate() {return membershipActiveDate;}
 
+    public LocalDate getHasPaidDate() {return hasPaidDate;}
+
+    public void setHasPaidDate(LocalDate hasPaidDate) {this.hasPaidDate = hasPaidDate;}
+
+    public boolean isHasPaid() {return hasPaid;}
+
+    public void setHasPaid(boolean hasPaid) {
+        this.hasPaid = hasPaid;
+    }
+
     public void setMembershipActive(Boolean membershipActive) {this.membershipActive = membershipActive;}
 
     public String toString(){
-        return name+","+age+","+membershipActive+","+isCompetitiveSwimmer+","+discipline+","+ registrationDate+","+membershipActiveDate;
+        return name+","+age+","+membershipActive+","+isCompetitiveSwimmer+","+discipline+","+ registrationDate+","+membershipActiveDate+","+hasPaid+","+hasPaidDate;
     }
 
 }

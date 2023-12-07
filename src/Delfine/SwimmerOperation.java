@@ -82,7 +82,7 @@ public class SwimmerOperation {
         //Det er i stedet for "null" som ikke kunne blive parsed i FileHandling.java:72
         LocalDate membershipActiveDate = LocalDate.of(0001,1,1);
         //Går ud fra alle nye svømmere ikke starter med at active
-        Swimmer newSwimmer = new Swimmer(name, age, true, isCompetitiveSwimmer, discipline, registrationDate, membershipActiveDate);
+        Swimmer newSwimmer = new Swimmer(name, age, true, isCompetitiveSwimmer, discipline, registrationDate, membershipActiveDate,true,registrationDate);
         swimmers.add(newSwimmer);
         fileHandling.saveSwimmersToTxtFile();
         System.out.println("Swimmer added successfully.");
@@ -296,6 +296,7 @@ public class SwimmerOperation {
                         int year = scanner.nextInt();
                         LocalDate newRegistrationDate = LocalDate.of(year, month, day);
                         swimmer.setRegistrationDate(newRegistrationDate);
+                        swimmer.setHasPaidDate(newRegistrationDate);
                         fileHandling.saveSwimmersToTxtFile();
                         System.out.println("New registration date: "+swimmer.getRegistrationDate());
                         swimmerOptions();
@@ -414,6 +415,13 @@ public class SwimmerOperation {
             if (swimmer.membershipActive){
                 System.out.println("Date membership was changed to active: "+swimmer.getMembershipActiveDate());
             }else System.out.println("Date membership was changed to passive: "+swimmer.getMembershipActiveDate());
+        }
+
+        if (swimmer.isHasPaid()){
+            System.out.println("Member last paid: "+swimmer.getHasPaidDate());
+        }
+        if (!swimmer.isHasPaid()){
+            System.out.println("Member has not payed in a while, last payment was: "+swimmer.getHasPaidDate());
         }
 
         Result bestTrainingTime = findBestTrainingTime(swimmer);
