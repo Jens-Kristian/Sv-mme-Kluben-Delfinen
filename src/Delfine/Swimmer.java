@@ -21,7 +21,6 @@ public class Swimmer {
         this.isCompetitiveSwimmer = isCompetitiveSwimmer;
         this.discipline = discipline;
         this.registrationDate = registrationDate;
-        this.competitionHistory = new ArrayList<>();
         this.membershipActiveDate = membershipActiveDate;
         this.hasPaid = hasPaid;
         this.hasPaidDate = hasPaidDate;
