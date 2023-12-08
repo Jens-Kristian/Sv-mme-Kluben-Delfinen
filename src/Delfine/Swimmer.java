@@ -76,9 +76,7 @@ public class Swimmer {
 
     public boolean isHasPaid() {return hasPaid;}
 
-    public void setHasPaid(boolean hasPaid) {
-        this.hasPaid = hasPaid;
-    }
+    public void setHasPaid(boolean hasPaid) {this.hasPaid = hasPaid;}
 
     public void setMembershipActive(Boolean membershipActive) {this.membershipActive = membershipActive;}
 
