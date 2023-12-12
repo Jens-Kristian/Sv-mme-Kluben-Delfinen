@@ -44,20 +44,21 @@ public class Econ {
 
         for (Swimmer swimmer : swimmers) {
 
-            if (swimmer.getMembershipActive()) {
-                activeMembers++;
-                if (swimmer.getAge() < 18) {
-                    juniorMembers++;
-                } else if (swimmer.getAge() >= 18 && swimmer.getAge() < 60) {
-                    seniorMembers++;
-                } else if (swimmer.getAge() >= 60) {
-                    superSeniorMembers++;
+            if (swimmer.hasPaid) {
+                if (swimmer.getMembershipActive()) {
+                    activeMembers++;
+                    if (swimmer.getAge() < 18) {
+                        juniorMembers++;
+                    } else if (swimmer.getAge() >= 18 && swimmer.getAge() < 60) {
+                        seniorMembers++;
+                    } else if (swimmer.getAge() >= 60) {
+                        superSeniorMembers++;
+                    }
+                } else {
+                    passivMembers++;
                 }
-            } else {
-                passivMembers++;
             }
         }
-
         int juniorMembersPrice = juniorMembers * 1000;
         int seniorMembersPrice = seniorMembers * 1600;
         int superSeniorMembersPrice = superSeniorMembers * 1200;
