@@ -7,7 +7,6 @@ public class Swimmer {
     public int age;
     public boolean membershipActive;
     public boolean isCompetitiveSwimmer;
-    public ArrayList<Result> competitionHistory;
     public String discipline;
     public LocalDate registrationDate;
     public LocalDate membershipActiveDate;
@@ -24,10 +23,6 @@ public class Swimmer {
         this.membershipActiveDate = membershipActiveDate;
         this.hasPaid = hasPaid;
         this.hasPaidDate = hasPaidDate;
-    }
-
-    public void addResult(Result result) {
-        competitionHistory.add(result);
     }
 
     public String getName() {
@@ -59,8 +54,6 @@ public class Swimmer {
     }
 
     public void setCompetitiveSwimmer(boolean competitiveSwimmer) {isCompetitiveSwimmer = competitiveSwimmer;}
-
-    public ArrayList<Result> getCompetitionHistory(){return competitionHistory;}
 
     public LocalDate getRegistrationDate(){return registrationDate;}
 

@@ -111,7 +111,7 @@ public class SwimmerOperation {
         }
         for (Competition competition : competitions){
             for (Result result : results){
-                if (competition.getResults().equals(result)){
+                if (result.getCompetition().equals(competition)){
                     competitionsToDelete.add(competition);
                 }
             }
@@ -132,8 +132,8 @@ public class SwimmerOperation {
 
     public Result findBestTrainingTime(Swimmer swimmer) {
         Result bestTrainingResult = null;
-        for (Result result : swimmer.getCompetitionHistory()) {
-            if (result.getCompetition().getNameCompetition().equalsIgnoreCase("Training") &&
+        for (Result result : results) {
+            if (result.getSwimmerName().equalsIgnoreCase(swimmer.getName()) && result.getCompetition().getNameCompetition().equalsIgnoreCase("Training") &&
                     (bestTrainingResult == null || result.getTime() < bestTrainingResult.getTime())) {
                 bestTrainingResult = result;
             }
@@ -180,8 +180,8 @@ public class SwimmerOperation {
                         System.out.println("Name: "+swimmer.getName()+" Age: "+swimmer.getAge());
                         swimmerFound = true;
                     }
-                    if (!swimmerFound)System.out.println("No competitive swimmers found");
                 }
+                if (!swimmerFound)System.out.println("No competitive swimmers found");
                 swimmerOptions();
             }
             case 4 -> {
@@ -191,8 +191,8 @@ public class SwimmerOperation {
                         System.out.println("Name: "+swimmer.getName()+" Age: "+swimmer.getAge());
                         swimmerFound =true;
                     }
-                    if (!swimmerFound)System.out.println("No active member found");
                 }
+                if (!swimmerFound)System.out.println("No active member found");
                 swimmerOptions();
             }
             case 5 -> {
@@ -202,8 +202,8 @@ public class SwimmerOperation {
                         System.out.println("Name: "+swimmer.getName()+" Age: "+swimmer.getAge());
                         swimmerFound = true;
                     }
-                    if(!swimmerFound)System.out.println("No inactive member found");
                 }
+                if(!swimmerFound)System.out.println("No inactive member found");
                 swimmerOptions();
             }
         }
@@ -377,7 +377,6 @@ public class SwimmerOperation {
         Competition newCompetition = new Competition("Training", localDate);
         competitions.add(newCompetition);
         Result newResult = new Result(selectedSwimmer.getName(), 0, time, discipline, newCompetition);
-        selectedSwimmer.addResult(newResult);
         results.add(newResult);
         fileHandling.saveResultsToTxtFile();
         fileHandling.saveCompetitionsToTxtFile();

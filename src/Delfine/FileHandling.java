@@ -143,12 +143,6 @@ public class FileHandling {
                     if (competition != null) {
                         Result result = new Result(swimmerName, placement, time, discipline, competition);
                         results.add(result);
-                        for (Swimmer swimmer : swimmers) {
-                            if (swimmer.getName().equalsIgnoreCase(swimmerName)) {
-                                swimmer.addResult(result);
-                            }
-                        }
-                        competition.addResult(result);
                     }
                 }
             }

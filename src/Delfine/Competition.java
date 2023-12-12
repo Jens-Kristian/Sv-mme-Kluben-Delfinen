@@ -13,18 +13,12 @@ public class Competition {
         this.date = date;
         this.results = new ArrayList<>();
     }
-    public void addResult(Delfine.Result result) {results.add(result);}
-
     public String getNameCompetition() {
         return nameCompetition;
     }
 
     public LocalDate getDate() {
         return date;
-    }
-
-    public ArrayList<Delfine.Result> getResults() {
-        return results;
     }
 
     public String toString(){

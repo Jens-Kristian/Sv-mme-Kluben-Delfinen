@@ -14,6 +14,7 @@ public class CompetitionOperation {
     private Menu menu;
 
     Delfine.FileHandling fileHandling = new Delfine.FileHandling();
+
     public CompetitionOperation() {
         this.menu = new Menu();
         this.results = fileHandling.results;
@@ -53,7 +54,7 @@ public class CompetitionOperation {
         }
     }
 
-    public void createCompetition(){
+    public void createCompetition() {
         System.out.println("Whats the name off the Competition?");
         String name = scanner.nextLine();
         System.out.println("What day of the month?");
@@ -66,26 +67,26 @@ public class CompetitionOperation {
         Competition newCompetition = new Competition(name, localDate);
         competitions.add(newCompetition);
         fileHandling.saveCompetitionsToTxtFile();
-        System.out.println("New competition "+name+" is created, date:"+localDate);
+        System.out.println("New competition " + name + " is created, date:" + localDate);
         competitionOptions();
     }
 
-    public void deleteCompetition(){
+    public void deleteCompetition() {
         boolean competitionFound = false;
         ArrayList<Result> resultToDelete = new ArrayList<>();
         Competition competitionToDelete = null;
         System.out.println("Whats the name off the Competition you want to delete? (9 for exit)");
         String competitionName = scanner.nextLine();
-        if (competitionName.equalsIgnoreCase("9"))competitionOptions();
-        for (Competition competition : competitions){
-            if (competition.getNameCompetition().equalsIgnoreCase(competitionName)){
+        if (competitionName.equalsIgnoreCase("9")) competitionOptions();
+        for (Competition competition : competitions) {
+            if (competition.getNameCompetition().equalsIgnoreCase(competitionName)) {
                 competitionFound = true;
-                System.out.println("Competition is found : "+competition.getNameCompetition()+" "+competition.getDate());
+                System.out.println("Competition is found : " + competition.getNameCompetition() + " " + competition.getDate());
                 System.out.println("Are you sure you want to delete this competition? (Y/N)");
                 String yesNo = scanner.nextLine();
-                if (yesNo.equalsIgnoreCase("y")){
-                    for (Result result : results){
-                        if (result.getCompetiotionName().equalsIgnoreCase(competition.getNameCompetition())){
+                if (yesNo.equalsIgnoreCase("y")) {
+                    for (Result result : results) {
+                        if (result.getCompetiotionName().equalsIgnoreCase(competition.getNameCompetition())) {
                             resultToDelete.add(result);
                         }
                     }
@@ -97,10 +98,10 @@ public class CompetitionOperation {
             System.out.println("Competition not found, try again");
             deleteCompetition();
         }
-        if (competitionToDelete != null){
+        if (competitionToDelete != null) {
             competitions.remove(competitionToDelete);
         }
-        for (Result result : resultToDelete){
+        for (Result result : resultToDelete) {
             results.remove(result);
         }
         fileHandling.saveResultsToTxtFile();
@@ -109,9 +110,9 @@ public class CompetitionOperation {
         competitionOptions();
     }
 
-    public void viewAllCompetitions(){
-        for (Competition competition : competitions){
-            if (!competition.getNameCompetition().equalsIgnoreCase("Training")){
+    public void viewAllCompetitions() {
+        for (Competition competition : competitions) {
+            if (!competition.getNameCompetition().equalsIgnoreCase("Training")) {
                 System.out.println(competition);
             }
         }
@@ -160,8 +161,6 @@ public class CompetitionOperation {
                 String discipline = selectedSwimmer.getDiscipline();
 
                 Result newResult = new Result(swimmerName, placement, time, discipline, selectedCompetition);
-                selectedCompetition.addResult(newResult);
-                selectedSwimmer.addResult(newResult);
                 results.add(newResult);
                 fileHandling.saveResultsToTxtFile();
                 System.out.println("Result added successfully.");
@@ -182,14 +181,12 @@ public class CompetitionOperation {
                 System.out.println("Competition Name: " + competition.getNameCompetition());
                 System.out.println("Competition Date: " + competition.getDate());
 
-
-                if (competition.getResults().isEmpty()) {
-                    System.out.println("No results recorded for this competition.");
-                } else {
-                    System.out.println("Results:");
-                    System.out.println("_______________");
-
-                    for (Result result : competition.getResults()) {
+                for (Result result : results) {
+                    if (result.getCompetition().equals(competition)) {
+                        System.out.println("No results recorded for this competition.");
+                    } else {
+                        System.out.println("Results:");
+                        System.out.println("_______________");
                         System.out.println("Swimmer: " + result.getSwimmerName());
                         System.out.println("Discipline: " + result.getDiscipline());
                         System.out.println("Time: " + result.getTime());
@@ -229,7 +226,7 @@ public class CompetitionOperation {
         // lav et nyt array filteredResults.,. Alle resultater bliver lagt her ind
         ArrayList<Result> filteredResults = new ArrayList<>();
         for (Competition competition : competitions) {
-            for (Result result : competition.getResults()) {
+            for (Result result : results) {
                 if (result.getDiscipline().equalsIgnoreCase(selectedDiscipline)) {
                     filteredResults.add(result);
                 }
